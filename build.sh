@@ -30,7 +30,7 @@ red='\033[0;31m'
 nocol='\033[0m'
 # Modify the following variable if you want to build
 export make clean && make mrproper
-export CROSS_COMPILE="/home/rokstarmanik/destroyer_kernel/arm-eabi-4.9/bin/arm-eabi-"
+export CROSS_COMPILE="/home/rokstarmanik/Destroyer-Kernel/arm-eabi-4.9/bin/arm-eabi-"
 export ARCH=arm
 export SUBARCH=arm
 make potter_defconfig
