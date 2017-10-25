@@ -38,9 +38,6 @@
 
 /* Tuneables */
 #define WG_DEBUG		0
-#define WG_DEFAULT		1
-#define DT2W_DEFAULT		0
-#define S2W_DEFAULT		1
 #define WG_DEFAULT		0
 #define DT2W_DEFAULT		0
 #define S2W_DEFAULT		0
@@ -271,7 +268,6 @@ static void detect_sweep2wake_v(int x, int y, bool st)
 
 	//sweep up
 	if (firsty > SWEEP_Y_START && single_touch && s2w_switch) {
-	if (firsty > SWEEP_Y_START && single_touch && s2w_switch & SWEEP_UP) {
 		prevy = firsty;
 		nexty = prevy - SWEEP_Y_NEXT;
 		if (barriery[0] == true || (y < prevy && y > nexty)) {
@@ -290,7 +286,6 @@ static void detect_sweep2wake_v(int x, int y, bool st)
 								input_sync(wake_dev);
 								input_report_key(wake_dev, KEY_GESTURE_SWIPE_UP, 0);
 								input_sync(wake_dev);
-								report_gesture(3);
 							} else {
 #endif
 								wake_pwrtrigger();
@@ -305,7 +300,6 @@ static void detect_sweep2wake_v(int x, int y, bool st)
 		}
 	//sweep down
 	} else if (firsty <= SWEEP_Y_START && single_touch && s2w_switch) {
-	} else if (firsty <= SWEEP_Y_START && single_touch && s2w_switch & SWEEP_DOWN) {
 		prevy = firsty;
 		nexty = prevy + SWEEP_Y_NEXT;
 		if (barriery[0] == true || (y > prevy && y < nexty)) {
@@ -324,7 +318,6 @@ static void detect_sweep2wake_v(int x, int y, bool st)
 								input_sync(wake_dev);
 								input_report_key(wake_dev, KEY_GESTURE_SWIPE_DOWN, 0);
 								input_sync(wake_dev);
-								report_gesture(4);
 							} else {
 #endif
 								wake_pwrtrigger();
@@ -364,8 +357,6 @@ static void detect_sweep2wake_h(int x, int y, bool st, bool scr_suspended)
 	if (firstx < SWEEP_X_START && single_touch &&
 			((scr_suspended && s2w_switch) ||
 			(!scr_suspended && s2s_switch))) {
-			((scr_suspended && (s2w_switch & SWEEP_RIGHT)) ||
-			(!scr_suspended && (s2s_switch & SWEEP_RIGHT)))) {
 		prevx = 0;
 		nextx = SWEEP_X_B1;
 		if ((barrierx[0] == true) ||
@@ -386,7 +377,6 @@ static void detect_sweep2wake_h(int x, int y, bool st, bool scr_suspended)
 								input_sync(wake_dev);
 								input_report_key(wake_dev, KEY_GESTURE_SWIPE_RIGHT, 0);
 								input_sync(wake_dev);
-								report_gesture(1);
 							} else {
 #endif
 								wake_pwrtrigger();
@@ -403,8 +393,6 @@ static void detect_sweep2wake_h(int x, int y, bool st, bool scr_suspended)
 	} else if (firstx >= SWEEP_X_START && single_touch &&
 			((scr_suspended && s2w_switch) ||
 			(!scr_suspended && s2s_switch))) {
-			((scr_suspended && (s2w_switch & SWEEP_LEFT)) ||
-			(!scr_suspended && (s2s_switch & SWEEP_LEFT)))) {
 		prevx = (SWEEP_X_MAX - SWEEP_X_FINAL);
 		nextx = SWEEP_X_B2;
 		if ((barrierx[0] == true) ||
@@ -425,7 +413,6 @@ static void detect_sweep2wake_h(int x, int y, bool st, bool scr_suspended)
 								input_sync(wake_dev);
 								input_report_key(wake_dev, KEY_GESTURE_SWIPE_LEFT, 0);
 								input_sync(wake_dev);
-								report_gesture(2);
 							} else {
 #endif
 								wake_pwrtrigger();
@@ -803,4 +790,3 @@ static void __exit wake_gestures_exit(void)
 
 module_init(wake_gestures_init);
 module_exit(wake_gestures_exit);
-
