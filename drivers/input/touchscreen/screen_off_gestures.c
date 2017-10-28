@@ -668,8 +668,6 @@ static void __exit screen_off_gestures_exit(void)
 	return;
 }
 
-module_init(wake_gestures_init);
-module_exit(wake_gestures_exit);
 module_init(screen_off_gestures_init);
 module_exit(screen_off_gestures_exit);
 
